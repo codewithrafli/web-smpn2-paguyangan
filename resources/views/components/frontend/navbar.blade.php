@@ -62,7 +62,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link"
-                    href="https://perpustakaan.smpn2paguyangan.sch.id/">Perpustkaan</a>
+                    href="https://perpustakaan.smpn2paguyangan.sch.id/">Perpustakaan</a>
             </li>
             </ul>
 
