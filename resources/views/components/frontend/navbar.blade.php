@@ -46,7 +46,6 @@
                     <li><a class="dropdown-item rounded-1 mt-1 {{ request()->is('ekstrakurikuler*') ? ' active' : '' }}"
                             href="{{ route('extracurricular') }}">Ekstarkulikuler</a>
                     </li>
-
                 </ul>
             </li>
             <li class="nav-item">
@@ -61,7 +60,10 @@
                 <a class="nav-link {{ request()->is('kelulusan') ? ' active' : '' }}"
                     href="{{ route('graduation') }}">Pengumuman Kelulusan</a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link"
+                    href="https://perpustakaan.smpn2paguyangan.sch.id/">Perpustkaan</a>
+            </li>
             </ul>
 
         </div>
