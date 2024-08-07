@@ -61,11 +61,38 @@
                     href="{{ route('graduation') }}">Pengumuman Kelulusan</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"
-                    href="https://perpustakaan.smpn2paguyangan.sch.id/">Perpustakaan</a>
+                <a class="nav-link" href="https://perpustakaan.smpn2paguyangan.sch.id/">Perpustakaan</a>
+            </li>
+
+            <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle"
+                    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sumber Belajar
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm p-1" role="menu">
+                    <li>
+                        <a class="dropdown-item rounded-1" href="bintangpusnas.perpusnas.go.id">
+                            bintangpusnas.perpusnas.go.id
+                        </a>
+                        <a class="dropdown-item rounded-1 mt-1" href="e-resources.perpusnas.go.id">
+                            e-resources.perpusnas.go.id
+                        </a>
+                        <a class="dropdown-item rounded-1 mt-1" href="ipunas.id">
+                            ipunas.id
+                        </a>
+                        <a class="dropdown-item rounded-1 mt-1" href="buku.kemdikbud.go.id">
+                            buku.kemdikbud.go.id
+                        </a>
+                        <a class="dropdown-item rounded-1 mt-1" href="budi.kemdikbud.go.id">
+                            budi.kemdikbud.go.id
+                        </a>
+                        <a class="dropdown-item rounded-1 mt-1" href="perpustakaan.kemdikbud.go.id">
+                            perpustakaan.kemdikbud.go.id
+                        </a>
+                    </li>
+                </ul>
             </li>
             </ul>
-
         </div>
     </div>
 </nav>
