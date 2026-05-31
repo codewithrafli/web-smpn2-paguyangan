@@ -28,45 +28,34 @@
     <meta name="twitter:description" content="{{ $description ?? getWebConfiguration()->description }}">
     <meta name="twitter:image" content="https://foto.data.kemdikbud.go.id/getImage/20338383/3.jpg">
 
-
     <link rel="shortcut icon" href="{{ asset(getWebConfiguration()->logo) }}" type="image/x-icon">
 
-    <style>
-        :root {
-            --primary: {{ getWebConfiguration()->theme_color }};
-        }
-    </style>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-
-    <link rel="stylesheet" href="{{ asset('frontend/css/app.css') }}?v={{ uniqid() }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}?v={{ uniqid() }}">
-
-
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+    <!-- Vite CSS -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @stack('plugin-styles')
-
     @stack('styles')
-
 </head>
 
-<body>
+<body class="flex flex-col min-h-screen">
 
     <x-frontend.navbar />
 
-    {{ $slot }}
-
+    <main class="flex-1">
+        {{ $slot }}
+    </main>
 
     <x-frontend.footer />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="{{ asset('frontend/js/app.js') }}?v={{ uniqid() }}"></script>
-    <script src="{{ asset('frontend/js/script.js') }}?v={{ uniqid() }}"></script>
 
     @stack('plugin-scripts')
-
     @stack('custom-scripts')
 
 </body>

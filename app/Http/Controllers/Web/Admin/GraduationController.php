@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\Admin\StoreGraduationRequest;
+use App\Imports\GraduationImport;
 use App\Interfaces\GraduationRepositoryInterface;
 use App\Models\Graduation;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert as Swal;
 
 class GraduationController extends Controller
@@ -104,6 +106,30 @@ class GraduationController extends Controller
             Swal::error('Gagal', 'Gagal mengubah data kelulusan');
 
             return redirect()->back()->withInput();
+        }
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls|max:5120',
+        ], [
+            'file.required' => 'File harus diupload.',
+            'file.mimes' => 'File harus berformat .xlsx atau .xls.',
+            'file.max' => 'Ukuran file maksimal 5MB.',
+        ]);
+
+        try {
+            $import = new GraduationImport;
+            Excel::import($import, $request->file('file'));
+
+            Swal::toast("Berhasil mengimport {$import->importedCount} data kelulusan", 'success');
+
+            return redirect()->route('admin.graduations.index');
+        } catch (\Exception $e) {
+            Swal::error('Gagal', 'Gagal mengimport data: ' . $e->getMessage());
+
+            return redirect()->back();
         }
     }
 

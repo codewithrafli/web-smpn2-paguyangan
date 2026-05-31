@@ -2,19 +2,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 @endpush
 
-
-<div class="mb-3">
-    <label for="{{ $attributes->get('name') }}" class="form-label">{{ $attributes->get('label') }}</label>
+<div class="mb-5">
+    <label for="{{ $attributes->get('name') }}" class="font-semibold text-sm mb-2 block">{{ $attributes->get('label') }}</label>
     <textarea name="{{ $attributes->get('name') }}" id="mde" cols="30" rows="10"
-        {{ $attributes->merge(['class' => 'form-control' . ($errors->has($attributes->get('name')) ? ' is-invalid' : '')]) }}>{{ $attributes->get('value') }}</textarea>
-
+        class="w-full rounded-3xl border border-[#E0E1EA] p-4 outline-none text-sm"
+        {{ $attributes->except(['class', 'label', 'name', 'value']) }}>{{ $attributes->get('value') }}</textarea>
     @if ($errors->has($attributes->get('name')))
-        <div class="invalid-feedback">
-            {{ $errors->first($attributes->get('name')) }}
-        </div>
+        <p class="text-red-500 text-sm mt-1">{{ $errors->first($attributes->get('name')) }}</p>
     @endif
 </div>
-
 
 @push('plugin-scripts')
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
@@ -22,8 +18,6 @@
 
 @push('custom-scripts')
     <script>
-        var simplemde = new SimpleMDE({
-            element: document.getElementById("mde"),
-        });
+        var simplemde = new SimpleMDE({ element: document.getElementById("mde") });
     </script>
 @endpush

@@ -5,56 +5,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $attributes->get('title') }}</title>
-    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/admin/images/logos/favicon-lazizmu.ico') }}" />
+    <link rel="shortcut icon" href="{{ asset(getWebConfiguration()->logo) }}" type="image/x-icon">
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <!-- End fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-    <!-- plugin css -->
-    <link href="{{ asset('admin/assets/fonts/feather-font/css/iconfont.css') }}" rel="stylesheet" />
-    <link href="{{ asset('admin/assets/plugins/perfect-scrollbar/perfect-scrollbar.css') }}" rel="stylesheet" />
-    <!-- end plugin css -->
+    <!-- Vite CSS -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @stack('plugin-styles')
-
-    <!-- common css -->
-    <link href="{{ asset('admin/css/app.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('admin/css/custom.css') }}">
-    <!-- end common css -->
-
     @stack('style')
-
 </head>
 
 <body>
+    @include('sweetalert::alert')
+    {{ $slot }}
 
-    <div class="main-wrapper" id="app">
-        <div class="page-wrapper full-page">
-
-            @include('sweetalert::alert')
-
-
-            {{ $slot }}
-
-        </div>
-    </div>
-
-    <!-- base js -->
-    <script src="{{ asset('admin/js/app.js') }}"></script>
-    <script src="{{ asset('admin/assets/plugins/feather-icons/feather.min.js') }}"></script>
-    <!-- end base js -->
-
-    <!-- plugin js -->
     @stack('plugin-scripts')
-    <!-- end plugin js -->
-
-    <!-- common js -->
-    <script src="{{ asset('admin/assets/js/template.js') }}"></script>
-    <!-- end common js -->
-
     @stack('custom-scripts')
 </body>
 

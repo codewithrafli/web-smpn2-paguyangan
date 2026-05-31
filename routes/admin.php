@@ -14,6 +14,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::resource('galleries', \App\Http\Controllers\Web\Admin\GalleryController::class);
     Route::resource('achievements', \App\Http\Controllers\Web\Admin\AchievementController::class);
     Route::resource('guestbooks', \App\Http\Controllers\Web\Admin\GuestBookController::class);
+    Route::post('graduations/import', [\App\Http\Controllers\Web\Admin\GraduationController::class, 'import'])->name('graduations.import');
     Route::resource('graduations', \App\Http\Controllers\Web\Admin\GraduationController::class);
     Route::resource('teachers', \App\Http\Controllers\Web\Admin\TeacherController::class);
     Route::resource('students', \App\Http\Controllers\Web\Admin\StudentController::class);

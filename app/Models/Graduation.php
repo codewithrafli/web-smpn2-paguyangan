@@ -17,9 +17,15 @@ class Graduation extends Model
         'photo',
         'skl_file',
         'skn_file',
+        'student_id',
     ];
 
     protected $casts = [
         'id' => 'string',
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
 }

@@ -1,39 +1,29 @@
 <x-layouts.admin title="Edit Banner">
-
-    <div class="d-flex align-items-center justify-content-between">
-        <nav class="page-breadcrumb mb-0">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">Manajemen Website</li>
-                <li class="breadcrumb-item">Banner</li>
-                <li class="breadcrumb-item active" aria-current="page">Edit</li>
-
-            </ol>
-        </nav>
-        <a href="{{ route('admin.banners.index') }}" class="btn btn-danger btn-sm ml-auto mb-3">Kembali</a>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
-            <x-admin.card title="Edit Banner">
-                <form action="{{ route('admin.banners.update', $banner->id) }}" method="POST"
-                    enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    <img src="{{ $banner->desktop_image }}" alt="desktop" class="mb-2" width="400"
-                        id="desktop_image_preview">
-                    <x-input.file label="Desktop Image" name="desktop_image" />
-                    <img src="{{ $banner->mobile_image }}" alt="desktop" class="mb-2" width="400"
-                        id="mobile_image_preview">
-                    <x-input.file label="Mobile Image" name="mobile_image" />
-                    <x-button.primary class="float-end" type="submit">
-                        Update
-                    </x-button.primary>
-                </form>
-            </x-admin.card>
+    <header class="flex items-center justify-between">
+        <div class="flex flex-col gap-[6px]">
+            <h1 class="text-[26px] font-bold leading-[39px]">Edit Banner</h1>
+            <p class="text-sm leading-[21px] text-bl-secondary">Manajemen Website / Banner / Edit</p>
         </div>
-    </div>
-
-
+        <a href="{{ route('admin.banners.index') }}">
+            <div class="font-semibold rounded-full py-[14px] px-5 bg-white border border-bl-black text-center hover:ring-2 hover:border-transparent hover:ring-bl-blue transition-all duration-300">Kembali</div>
+        </a>
+    </header>
+    <x-admin.card title="Edit Banner">
+        <form action="{{ route('admin.banners.update', $banner->id) }}" method="POST"
+            enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <img src="{{ $banner->desktop_image }}" alt="desktop" class="mb-2 max-w-[400px] rounded"
+                id="desktop_image_preview">
+            <x-input.file label="Desktop Image" name="desktop_image" />
+            <img src="{{ $banner->mobile_image }}" alt="desktop" class="mb-2 max-w-[400px] rounded"
+                id="mobile_image_preview">
+            <x-input.file label="Mobile Image" name="mobile_image" />
+            <div class="flex justify-end mt-6">
+                <x-button.primary type="submit">Update</x-button.primary>
+            </div>
+        </form>
+    </x-admin.card>
 
     @push('custom-scripts')
         <script>

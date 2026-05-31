@@ -1,171 +1,91 @@
 <x-layouts.frontend title="{{ getWebConfiguration()->name }}">
     @push('plugin-styles')
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
         <link rel="stylesheet" href="{{ asset('frontend/assets/plugins/lightbox/css/lightbox.css') }}">
     @endpush
 
-    @push('styles')
-        <style>
-            .bannerSwiper.swiper {
-                width: 100%;
-                height: 100%;
-            }
-
-            .bannerSwiper .swiper-slide {
-                text-align: center;
-                font-size: 18px;
-                background: #fff;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-            }
-
-            .bannerSwiper .swiper-slide img {
-                display: block;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-
-
-            .bannerSwiper .swiper-pagination-bullet-active {
-                background: #114c86;
-            }
-
-            @media (max-width: 767px) {
-                .bannerSwiper.swiper {
-                    width: 100%;
-                }
-            }
-        </style>
-    @endpush
-
-    <!-- ======= Slider Section ======= -->
+    <!-- ======= Hero Banner ======= -->
     <x-frontend.banner>
         @foreach ($banners as $banner)
             <div class="swiper-slide">
-                <img src="{{ asset($banner->desktop_image) }}" alt="banner"
-                    class="d-none d-sm-none d-md-none d-lg-block">
-                <img src="{{ asset($banner->mobile_image) }}" alt="banner"
-                    class="d-block d-sm-block d-md-block d-lg-none">
+                <div class="w-full h-[300px] md:h-[500px]">
+                    <img src="{{ asset($banner->desktop_image) }}" alt="banner" class="hidden lg:block w-full h-full object-cover">
+                    <img src="{{ asset($banner->mobile_image) }}" alt="banner" class="block lg:hidden w-full h-full object-cover">
+                </div>
             </div>
         @endforeach
     </x-frontend.banner>
-    <!-- ======= End Slider Section ======= -->
 
-    <div class="container py-5">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-12 col-md-6 col-lg-4 mb-3">
-                <h3 class="text-center">
-                    Selamat Datang di Website <br> {{ getWebConfiguration()->name }}
-                </h3>
+    <!-- ======= Welcome / Stats Section ======= -->
+    <section class="w-full max-w-[1130px] mx-auto px-4 py-[70px]">
+        <div class="flex flex-col lg:flex-row items-center gap-[50px]">
+            <div class="flex-1">
+                <h2 class="font-extrabold text-[28px] md:text-[36px] leading-[42px] md:leading-[54px]">
+                    Selamat Datang di <br> {{ getWebConfiguration()->name }}
+                </h2>
             </div>
-            <div class="col-12 col-md-6 col-lg-8 mb-3">
-                <h6>
+            <div class="flex-1">
+                <p class="text-bl-secondary leading-[28px]">
                     {{ getWebConfiguration()->name }} adalah {{ getWebConfiguration()->description }}
-                </h6>
+                </p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- ======= News Section ======= -->
-    <div class="container">
+    <!-- ======= Berita Terbaru ======= -->
+    <section class="w-full max-w-[1130px] mx-auto px-4 pb-[70px]">
+        <div class="flex items-center justify-between mb-[30px]">
+            <h2 class="font-extrabold text-[28px] leading-[42px]">Berita Terbaru</h2>
+            <a href="{{ route('news') }}" class="text-bl-blue font-semibold hover:underline">Lihat Semua</a>
+        </div>
         <x-frontend.card.news :news="$news" />
-    </div>
-    <!-- ======= End News Section ======= -->
+    </section>
 
-    <div class="mt-5 py-5 bg-light">
-        <div class="container">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-12 col-md-6 col-lg-4 mb-3">
-                    <img src="{{ getWebConfiguration()->headmaster_image }}" alt="placeholder"
-                        class="img-fluid rounded-2">
-                    <p class="text-center mt-3">
-                        {{ getWebConfiguration()->headmaster_name }}
-                    </p>
+    <!-- ======= Sambutan Kepala Sekolah ======= -->
+    <section class="bg-bl-grey py-[70px]">
+        <div class="w-full max-w-[1130px] mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-[50px]">
+                <div class="lg:w-[300px] shrink-0">
+                    <img src="{{ getWebConfiguration()->headmaster_image }}" alt="Kepala Sekolah" class="w-full rounded-[30px] object-cover">
+                    <p class="text-center mt-4 font-semibold text-lg">{{ getWebConfiguration()->headmaster_name }}</p>
                 </div>
-                <div class="col-12 col-md-6 col-lg-8 mb-3">
-                    <div class="badge bg-primary text-white mb-3">
-                        Sambutan Kepala Sekolah
-                    </div>
-                    <p>
+                <div class="flex-1">
+                    <span class="inline-block rounded-full py-2 px-5 bg-bl-blue text-white font-semibold text-sm mb-4">Sambutan Kepala Sekolah</span>
+                    <div class="text-bl-secondary leading-[28px] prose max-w-none">
                         {!! \Illuminate\Support\Str::markdown(getWebConfiguration()->headmaster_message) !!}
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- ======= Gallery Section ======= -->
-    <div class="container py-5">
-        <div class="row ">
+    <!-- ======= Gallery Preview ======= -->
+    <section class="w-full max-w-[1130px] mx-auto px-4 py-[70px]">
+        <h2 class="font-extrabold text-[28px] leading-[42px] mb-[30px]">Gallery</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-[20px]">
             @foreach ($galleries as $gallery)
-                <div class="col-6 col-sm-6 col-md-4  col-lg-4 mb-3">
-                    <a href="{{ asset($gallery->image) }}" class="d-block" data-lightbox="gambar"
-                        data-title="{{ $gallery->description }}">
-                        <img src="{{ asset($gallery->image) }}" alt="image" class="img-gallery">
-                    </a>
-                </div>
+                <a href="{{ asset($gallery->image) }}" class="block overflow-hidden rounded-[20px]" data-lightbox="gambar" data-title="{{ $gallery->description }}">
+                    <img src="{{ asset($gallery->image) }}" alt="image" class="w-full h-[200px] object-cover hover:scale-105 transition-transform duration-300">
+                </a>
             @endforeach
         </div>
-    </div>
-    <!-- ======= End Gallery Section ======= -->
+    </section>
 
     @push('plugin-scripts')
         <script src="{{ asset('frontend/assets/plugins/lightbox/js/lightbox-plus-jquery.min.js') }}"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     @endpush
 
     @push('custom-scripts')
         <script>
-            lightbox.option({
-                'resizeDuration': 200,
-                'wrapAround': true
-            })
-        </script>
-        <script>
+            lightbox.option({ 'resizeDuration': 200, 'wrapAround': true });
+
             var swiper = new Swiper(".bannerSwiper", {
-                pagination: {
-                    el: ".swiper-pagination",
-
-                },
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-                autoplay: {
-                    delay: 3000,
-                },
+                effect: "fade",
+                fadeEffect: { crossFade: true },
+                pagination: { el: ".swiper-pagination" },
+                autoplay: { delay: 5000 },
                 loop: true,
-            });
-        </script>
-        <script>
-            var swiper = new Swiper(".mySwiper", {
-                slidesPerView: 2,
-                spaceBetween: 20,
-                centeredSlides: false,
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1.2,
-                        spaceBetween: 10,
-                    },
-                    768: {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                        centeredSlides: true,
-                        initialSlide: 1
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 20,
-                        centeredSlides: false,
-
-                    },
-                },
-
             });
         </script>
     @endpush

@@ -1,157 +1,159 @@
-<nav class="sidebar">
-    <div class="sidebar-header">
-
-        <img src="{{ asset(getWebConfiguration()->logo) }}" class="sidebar-brand" width="40">
-        <div class="sidebar-toggler not-active">
-            <span></span>
-            <span></span>
-            <span></span>
+<aside class="hidden lg:block h-screen shrink-0 w-[270px] overflow-y-auto bg-bl-black text-white [&::-webkit-scrollbar]:hidden fixed left-0 top-0 z-40">
+    <div class="flex h-full w-full flex-col gap-[40px] pt-[40px]">
+        <!-- Logo -->
+        <div class="px-[30px]">
+            <a href="{{ route('admin.dashboard') }}" class="shrink-0 flex items-center gap-3">
+                <img src="{{ asset(getWebConfiguration()->logo) }}" alt="logo" class="h-10 w-10 rounded-full bg-white p-0.5">
+                <span class="font-bold text-sm truncate">{{ getWebConfiguration()->name }}</span>
+            </a>
         </div>
-    </div>
-    <div class="sidebar-body">
-        <ul class="nav">
-            <li class="nav-item nav-category">Main</li>
+
+        <!-- Navigation -->
+        <nav class="flex flex-col gap-[40px] pb-[40px] px-[30px]">
             @hasrole('admin')
-                <li class="nav-item {{ request()->is('admin/dashboard') ? ' active' : '' }}">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link">
-                        <i class="link-icon" data-feather="box"></i>
-                        <span class="link-title">Dashboard</span>
-                    </a>
-                </li>
+            <!-- GENERAL -->
+            <section class="flex flex-col gap-[24px]">
+                <h3 class="text-sm font-semibold leading-[21px] text-bl-secondary">GENERAL</h3>
+                <ul class="flex flex-col gap-[20px]">
+                    <li class="group {{ request()->is('admin/dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('admin.dashboard') }}">
+                            <div class="flex items-center gap-[10px]">
+                                <i class="bi bi-grid text-lg group-[&.active]:text-bl-green group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-[&.active]:font-semibold group-[&.active]:text-bl-green group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Dashboard</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="group {{ request()->is('admin/banners*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.banners.index') }}">
+                            <div class="flex items-center gap-[10px]">
+                                <i class="bi bi-image text-lg group-[&.active]:text-bl-green group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-[&.active]:font-semibold group-[&.active]:text-bl-green group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Banners</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="group {{ request()->is('admin/galleries*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.galleries.index') }}">
+                            <div class="flex items-center gap-[10px]">
+                                <i class="bi bi-images text-lg group-[&.active]:text-bl-green group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-[&.active]:font-semibold group-[&.active]:text-bl-green group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Gallery</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="group {{ request()->is('admin/achievements*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.achievements.index') }}">
+                            <div class="flex items-center gap-[10px]">
+                                <i class="bi bi-trophy text-lg group-[&.active]:text-bl-green group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-[&.active]:font-semibold group-[&.active]:text-bl-green group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Prestasi</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="group {{ request()->is('admin/teachers*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.teachers.index') }}">
+                            <div class="flex items-center gap-[10px]">
+                                <i class="bi bi-person-badge text-lg group-[&.active]:text-bl-green group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-[&.active]:font-semibold group-[&.active]:text-bl-green group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Data Guru</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="group {{ request()->is('admin/students*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.students.index') }}">
+                            <div class="flex items-center gap-[10px]">
+                                <i class="bi bi-people text-lg group-[&.active]:text-bl-green group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-[&.active]:font-semibold group-[&.active]:text-bl-green group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Data Siswa</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="group {{ request()->is('admin/news*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.news.index') }}">
+                            <div class="flex items-center gap-[10px]">
+                                <i class="bi bi-newspaper text-lg group-[&.active]:text-bl-green group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-[&.active]:font-semibold group-[&.active]:text-bl-green group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Berita</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="group {{ request()->is('admin/news-categories*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.news-categories.index') }}">
+                            <div class="flex items-center gap-[10px]">
+                                <i class="bi bi-tag text-lg group-[&.active]:text-bl-green group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-[&.active]:font-semibold group-[&.active]:text-bl-green group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Kategori Berita</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="group {{ request()->is('admin/extracurriculars*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.extracurriculars.index') }}">
+                            <div class="flex items-center gap-[10px]">
+                                <i class="bi bi-activity text-lg group-[&.active]:text-bl-green group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-[&.active]:font-semibold group-[&.active]:text-bl-green group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Ekstrakurikuler</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="group {{ request()->is('admin/graduations*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.graduations.index') }}">
+                            <div class="flex items-center gap-[10px]">
+                                <i class="bi bi-mortarboard text-lg group-[&.active]:text-bl-green group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-[&.active]:font-semibold group-[&.active]:text-bl-green group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Kelulusan</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="group {{ request()->is('admin/guestbooks*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.guestbooks.index') }}">
+                            <div class="flex items-center gap-[10px]">
+                                <i class="bi bi-book text-lg group-[&.active]:text-bl-green group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-[&.active]:font-semibold group-[&.active]:text-bl-green group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Buku Tamu</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
 
-                <li class="nav-item {{ request()->is('admin/guestbooks*') ? ' active' : '' }}">
-                    <a href="{{ route('admin.guestbooks.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="book"></i>
-                        <span class="link-title">Buku Tamu</span>
-                    </a>
-                </li>
-                <li class="nav-item {{ request()->is('admin/graduations*') ? ' active' : '' }}">
-                    <a href="{{ route('admin.graduations.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="award"></i>
-                        <span class="link-title">Pengumuman Kelulusan</span>
-                    </a>
-                </li>
-                <li class="nav-item {{ request()->is('admin/galleries*') ? ' active' : '' }}">
-                    <a href="{{ route('admin.galleries.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="image"></i>
-                        <span class="link-title">Gallery</span>
-                    </a>
-                </li>
-                <li class="nav-item {{ request()->is('admin/achievements*') ? ' active' : '' }}">
-                    <a href="{{ route('admin.achievements.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="award"></i>
-                        <span class="link-title">Prestasi</span>
-                    </a>
-                </li>
-                <li class="nav-item {{ request()->is('admin/extracurriculars*') ? ' active' : '' }}">
-                    <a href="{{ route('admin.extracurriculars.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="activity"></i>
-                        <span class="link-title">Ekstrakulikuler</span>
-                    </a>
-                </li>
-                <li class="nav-item {{ request()->is('admin/teachers*') ? ' active' : '' }}">
-                    <a href="{{ route('admin.teachers.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="users"></i>
-                        <span class="link-title">Data Guru</span>
-                    </a>
-                </li>
-                <li class="nav-item {{ request()->is('admin/students*') ? ' active' : '' }}">
-                    <a href="{{ route('admin.students.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="users"></i>
-                        <span class="link-title">Data Ssiwa</span>
-                    </a>
-                </li>
-                <li class="nav-item {{ request()->is('admin/news-categories*', 'admin/news*') ? ' active' : '' }}">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#news-management" role="button"
-                        aria-expanded="{{ request()->is('admin/news-categories*', 'admin/news*') ? ' true' : '' }}"
-                        aria-controls="news-management">
-                        <i class="link-icon" data-feather="book-open"></i>
-                        <span class="link-title">Manajemen Berita</span>
-                        <i class="link-arrow" data-feather="chevron-down"></i>
-                    </a>
-                    <div class="collapse {{ request()->is('admin/news-categories*', 'admin/news*') ? 'show' : '' }}"
-                        id="news-management">
-                        <ul class="nav sub-menu">
-                            <li class="nav-item">
-                                <a href="{{ route('admin.news-categories.index') }}"
-                                    class="nav-link {{ request()->is('admin/news-categories*') ? ' active' : '' }}">
-                                    Kategori Berita
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('admin.news.index') }}"
-                                    class="nav-link {{ request()->is('admin/news*') ? ' active' : '' }}">
-                                    Berita
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item {{ request()->is('admin/banners*', 'admin/web-configuration') ? ' active' : '' }}">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#website-management" role="button"
-                        aria-expanded="{{ request()->is('admin/banners*', 'admin/web-configuration') ? ' true' : '' }}"
-                        aria-controls="website-management">
-                        <i class="link-icon" data-feather="globe"></i>
-                        <span class="link-title">Manajemen Website</span>
-                        <i class="link-arrow" data-feather="chevron-down"></i>
-                    </a>
-                    <div class="collapse {{ request()->is('admin/banners*', 'admin/web-configuration') ? 'show' : '' }}"
-                        id="website-management">
-                        <ul class="nav sub-menu">
-                            <li class="nav-item">
-                                <a href="{{ route('admin.banners.index') }}"
-                                    class="nav-link {{ request()->is('admin/banners*') ? ' active' : '' }}">Banner</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('admin.web-configuration') }}"
-                                    class="nav-link {{ request()->is('admin/web-configuration') ? ' active' : '' }}">Konfigurasi
-                                    Web</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+            <!-- LAINNYA -->
+            <section class="flex flex-col gap-[24px]">
+                <h3 class="text-sm font-semibold leading-[21px] text-bl-secondary">LAINNYA</h3>
+                <ul class="flex flex-col gap-[20px]">
+                    <li class="group {{ request()->is('admin/web-configuration') ? 'active' : '' }}">
+                        <a href="{{ route('admin.web-configuration') }}">
+                            <div class="flex items-center gap-[10px]">
+                                <i class="bi bi-gear text-lg group-[&.active]:text-bl-green group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-[&.active]:font-semibold group-[&.active]:text-bl-green group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Konfigurasi Web</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="group">
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="flex items-center gap-[10px] w-full">
+                                <i class="bi bi-box-arrow-left text-lg group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Logout</p>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </section>
             @else
-                <li class="nav-item {{ request()->is('petugas/guestbooks*') ? ' active' : '' }}">
-                    <a href="{{ route('petugas.guestbooks.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="book"></i>
-                        <span class="link-title">Buku Tamu</span>
-                    </a>
-                </li>
+            <!-- Petugas menu -->
+            <section class="flex flex-col gap-[24px]">
+                <h3 class="text-sm font-semibold leading-[21px] text-bl-secondary">MENU</h3>
+                <ul class="flex flex-col gap-[20px]">
+                    <li class="group {{ request()->is('petugas/guestbooks*') ? 'active' : '' }}">
+                        <a href="{{ route('petugas.guestbooks.index') }}">
+                            <div class="flex items-center gap-[10px]">
+                                <i class="bi bi-book text-lg group-[&.active]:text-bl-green group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-[&.active]:font-semibold group-[&.active]:text-bl-green group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Buku Tamu</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="group">
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="flex items-center gap-[10px] w-full">
+                                <i class="bi bi-box-arrow-left text-lg group-hover:text-bl-green transition-all duration-300"></i>
+                                <p class="group-hover:text-bl-green group-hover:font-semibold transition-all duration-300 text-sm">Logout</p>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </section>
             @endhasrole
-        </ul>
+        </nav>
     </div>
-</nav>
-<nav class="settings-sidebar">
-    <div class="sidebar-body">
-        <a href="#" class="settings-sidebar-toggler">
-            <i data-feather="settings"></i>
-        </a>
-        <h6 class="text-muted mb-2">Sidebar:</h6>
-        <div class="mb-3 pb-3 border-bottom">
-            <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarLight"
-                        value="sidebar-light" checked>
-                    Light
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarDark"
-                        value="sidebar-dark">
-                    Dark
-                </label>
-            </div>
-        </div>
-        <div class="theme-wrapper">
-            <h6 class="text-muted mb-2">Light Version:</h6>
-            <a class="theme-item active" href="https://www.nobleui.com/laravel/template/demo1/">
-                <img src="{{ url('assets/images/screenshots/light.jpg') }}" alt="light version">
-            </a>
-            <h6 class="text-muted mb-2">Dark Version:</h6>
-            <a class="theme-item" href="https://www.nobleui.com/laravel/template/demo2/">
-                <img src="{{ url('assets/images/screenshots/dark.jpg') }}" alt="light version">
-            </a>
-        </div>
-    </div>
-</nav>
+</aside>

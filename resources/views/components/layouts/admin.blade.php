@@ -5,60 +5,45 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin - {{ $title ?? '' }}</title>
-    <link rel="shortcut icon" type="image/png"
-        href="{{ asset('frontend/assets/images/logo-smp-removebg-preview.png') }}" />
+    <link rel="shortcut icon" href="{{ asset(getWebConfiguration()->logo) }}" type="image/x-icon">
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <!-- End fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-    <!-- plugin css -->
-    <link href="{{ asset('admin/assets/fonts/feather-font/css/iconfont.css') }}" rel="stylesheet" />
-    <link href="{{ asset('admin/assets/plugins/perfect-scrollbar/perfect-scrollbar.css') }}" rel="stylesheet" />
-    <!-- end plugin css -->
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- Vite CSS -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @stack('plugin-styles')
-
-    <!-- common css -->
-    <link href="{{ asset('admin/css/app.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('admin/css/custom.css') }}">
-    <!-- end common css -->
-
     @stack('style')
 </head>
 
 <body>
-
-    <div class="main-wrapper" id="app">
+    <div class="flex min-h-screen bg-[#FAFAFA]">
+        <!-- Sidebar -->
         <x-admin.sidebar />
-        <div class="page-wrapper">
-            <x-admin.header />
+
+        <!-- Main Content -->
+        <div class="h-screen w-full overflow-y-auto pt-[142px] px-4 lg:px-[30px]">
+            <!-- Fixed Top Bar -->
+            <div class="fixed left-0 lg:left-[270px] right-0 top-[30px] z-30 px-4 lg:px-[30px]">
+                <x-admin.header />
+            </div>
 
             @include('sweetalert::alert')
 
-            <div class="page-content">
+            <!-- Content -->
+            <main class="flex w-full flex-col gap-[30px] py-[28px]">
                 {{ $slot }}
-            </div>
-
+            </main>
         </div>
     </div>
 
-    <!-- base js -->
-    <script src="{{ asset('admin/js/app.js') }}"></script>
-    <script src="{{ asset('admin/assets/plugins/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-    <!-- end base js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <!-- plugin js -->
     @stack('plugin-scripts')
-    <!-- end plugin js -->
-
-    <!-- common js -->
-    <script src="{{ asset('admin/assets/js/template.js') }}"></script>
-    <!-- end common js -->
-
     @stack('custom-scripts')
 </body>
 

@@ -1,40 +1,29 @@
 <x-layouts.frontend title="{{ $extracurricular->name }}">
-
     <x-frontend.header>
-        <x-slot name="title">
-            {{ $extracurricular->name }}
-        </x-slot>
+        <x-slot name="title">{{ $extracurricular->name }}</x-slot>
         <x-slot name="description">
-            <a href="{{ route('extracurricular') }}" class="text-decoration-none text-primary">Ekstrakurikuler</a> /
-            {{ $extracurricular->name }}
+            <a href="{{ route('extracurricular') }}" class="text-bl-blue hover:underline">Ekstrakurikuler</a> / {{ $extracurricular->name }}
         </x-slot>
     </x-frontend.header>
 
-
-    <div class="container mt-5 mb-5">
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-3">
-                <img src="{{ asset($extracurricular->image_url) }}" class="img-fluid rounded"
-                    alt="{{ $extracurricular->name }}">
+    <div class="w-full max-w-[1130px] mx-auto px-4 mt-[50px] mb-[100px]">
+        <div class="flex flex-col lg:flex-row gap-[30px]">
+            <div class="lg:w-[400px] shrink-0">
+                <img src="{{ asset($extracurricular->image_url) }}" class="w-full rounded-[30px] object-cover" alt="{{ $extracurricular->name }}">
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-9">
-                <table class="table table-striped">
-                    <tr>
-                        <th>Nama</th>
-                        <th>:</th>
-                        <td>{{ $extracurricular->name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Deskripsi</th>
-                        <th>:</th>
-                        <td>{{ $extracurricular->description }}</td>
-                    </tr>
-                    <tr>
-                        <th>Pembimbing</th>
-                        <th>:</th>
-                        <td>{{ $extracurricular->teacher->name }}</td>
-                    </tr>
-                </table>
+            <div class="flex-1 flex flex-col gap-[20px]">
+                <div class="rounded-3xl bg-white border border-bl-border p-6">
+                    <h3 class="font-bold text-lg mb-2">Nama</h3>
+                    <p class="text-bl-secondary">{{ $extracurricular->name }}</p>
+                </div>
+                <div class="rounded-3xl bg-white border border-bl-border p-6">
+                    <h3 class="font-bold text-lg mb-2">Deskripsi</h3>
+                    <p class="text-bl-secondary leading-[28px]">{{ $extracurricular->description }}</p>
+                </div>
+                <div class="rounded-3xl bg-white border border-bl-border p-6">
+                    <h3 class="font-bold text-lg mb-2">Pembimbing</h3>
+                    <p class="text-bl-secondary">{{ $extracurricular->teacher->name }}</p>
+                </div>
             </div>
         </div>
     </div>

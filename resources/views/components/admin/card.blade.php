@@ -1,9 +1,6 @@
-<div class="card">
-    <div class="card-body">
-        <h6 class="card-title">
-            {{ $attributes->get('title') }}
-        </h6>
-
-        {{ $slot }}
-    </div>
+<div class="rounded-3xl bg-white p-6">
+    @if($attributes->get('title'))
+        <h6 class="font-bold text-lg mb-4">{{ $attributes->get('title') }}</h6>
+    @endif
+    {{ $slot }}
 </div>

@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@source "../../resources/views/**/*.blade.php";
+@source "../../resources/js/**/*.js";
+
+@theme {
+    --color-bl-black: #0F122A;
+    --color-bl-primary: #0F122A;
+    --color-bl-secondary: #8F91A2;
+    --color-bl-green: #B3FC6A;
+    --color-bl-blue: #007AFF;
+    --color-bl-light-orange: #FF9F47;
+    --color-bl-orange: #F25022;
+    --color-bl-grey: #F6F6F9;
+    --color-bl-border: #E1E4EB;
+
+    --font-poppins: "Poppins", sans-serif;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    color: #181C39;
+    min-height: 100vh;
+}
+
+.tick {
+    display: none;
+}
+
+.show-tick .tick {
+    display: block !important;
+}
+
+.slide-top {
+    animation: slide-top 25s infinite linear;
+}
+
+.slide-bottom {
+    animation: slide-bottom 25s infinite linear;
+}
+
+@keyframes slide-top {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes slide-bottom {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Swiper customizations */
+.bannerSwiper .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bannerSwiper .swiper-pagination-bullet-active {
+    background: #007AFF;
+}
+
+/* SimpleMDE overrides for Tailwind compatibility */
+.CodeMirror {
+    border-radius: 1rem;
+    border: 1px solid #E1E4EB;
+}
+
+/* Lightbox overrides */
+.lb-outerContainer {
+    border-radius: 20px;
+    overflow: hidden;
+}
