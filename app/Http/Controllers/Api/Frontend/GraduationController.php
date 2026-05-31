@@ -28,7 +28,14 @@ class GraduationController extends Controller
 
         return response()->json([
             'message' => 'Data ditemukan',
-            'data' => $graduation,
+            'data' => [
+                'name' => $graduation->name,
+                'test_number' => $graduation->test_number,
+                'status' => $graduation->status,
+                'photo' => $graduation->photo ? asset('storage/' . $graduation->photo) : null,
+                'skl_file' => $graduation->skl_file ? asset('storage/' . $graduation->skl_file) : null,
+                'skn_file' => $graduation->skn_file ? asset('storage/' . $graduation->skn_file) : null,
+            ],
         ], 200);
     }
 }

@@ -19,6 +19,9 @@ class StoreGraduationRequest extends FormRequest
             'name' => 'required|string',
             'test_number' => 'required|string',
             'status' => 'required|string|in:passed,failed',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'skl_file' => 'nullable|file|mimes:pdf|max:5120',
+            'skn_file' => 'nullable|file|mimes:pdf|max:5120',
         ];
     }
 

@@ -14,6 +14,9 @@ class Graduation extends Model
         'name',
         'test_number',
         'status',
+        'photo',
+        'skl_file',
+        'skn_file',
     ];
 
     protected $casts = [
