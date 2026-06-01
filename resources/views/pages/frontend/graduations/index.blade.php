@@ -166,7 +166,7 @@
     <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.10.1/tsparticles.confetti.bundle.min.js"></script>
 
     <script>
-        const graduationDatetime = @json(optional(getWebConfiguration()->graduation_datetime)->toIso8601String());
+        const graduationDatetime = @json(optional(getWebConfiguration()->graduation_datetime)?->setTimezone('Asia/Jakarta')->toIso8601String());
 
         (function initCountdown() {
             const searchCard = document.getElementById('searchCard');
@@ -191,12 +191,13 @@
             searchCard.style.display = 'none';
             countdownSection.style.display = '';
 
-            // Format date for display
+            // Format date for display (WIB)
             const formatted = target.toLocaleDateString('id-ID', {
                 weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-                hour: '2-digit', minute: '2-digit'
+                hour: '2-digit', minute: '2-digit',
+                timeZone: 'Asia/Jakarta'
             });
-            document.getElementById('countdownDateText').textContent = 'Pengumuman akan dibuka pada ' + formatted;
+            document.getElementById('countdownDateText').textContent = 'Pengumuman akan dibuka pada ' + formatted + ' WIB';
 
             function updateCountdown() {
                 const now = new Date();
