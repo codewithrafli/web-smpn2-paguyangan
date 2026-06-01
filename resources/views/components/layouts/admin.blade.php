@@ -26,7 +26,7 @@
         <x-admin.sidebar />
 
         <!-- Main Content -->
-        <div class="h-screen w-full overflow-y-auto pt-[142px] px-4 lg:px-[30px]">
+        <div class="h-screen w-full overflow-y-auto pt-[142px] px-4 lg:px-[30px] lg:ml-[270px]">
             <!-- Fixed Top Bar -->
             <div class="fixed left-0 lg:left-[270px] right-0 top-[30px] z-30 px-4 lg:px-[30px]">
                 <x-admin.header />
