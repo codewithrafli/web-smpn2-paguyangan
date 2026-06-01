@@ -17,14 +17,43 @@
 
 @push('style')
     <style>
+        /* Table */
         #dataTableExample th { padding: 12px 16px; font-weight: 600; font-size: 13px; white-space: nowrap; }
         #dataTableExample td { padding: 12px 16px; border-top: 1px solid #E1E4EB; font-size: 13px; }
         #dataTableExample tbody tr:hover { background: #F6F6F9; }
-        .dataTables_wrapper .dataTables_paginate .paginate_button { border-radius: 9999px !important; padding: 6px 14px !important; margin: 0 2px !important; }
-        .dataTables_wrapper .dataTables_paginate .paginate_button.current { background: #007AFF !important; color: white !important; border: none !important; }
-        .dataTables_wrapper .dataTables_filter input { border-radius: 9999px; border: 1px solid #E1E4EB; padding: 8px 16px; outline: none; }
+
+        /* Wrapper rows */
+        .dataTables_wrapper .row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 10px 16px; gap: 8px; }
+
+        /* Search */
+        .dataTables_wrapper .dataTables_filter input { border-radius: 9999px; border: 1px solid #E1E4EB; padding: 8px 16px; outline: none; font-size: 13px; }
         .dataTables_wrapper .dataTables_filter input:focus { box-shadow: 0 0 0 2px #007AFF; border-color: transparent; }
-        .dataTables_wrapper .dataTables_length select { border-radius: 9999px; border: 1px solid #E1E4EB; padding: 6px 12px; }
+
+        /* Length */
+        .dataTables_wrapper .dataTables_length { font-size: 13px; }
+        .dataTables_wrapper .dataTables_length select { border-radius: 9999px; border: 1px solid #E1E4EB; padding: 6px 12px; margin: 0 4px; }
+
+        /* Info */
+        .dataTables_wrapper .dataTables_info { font-size: 13px; color: #8F91A2; }
+
+        /* Pagination - Bootstrap 5 markup */
+        .dataTables_wrapper .dataTables_paginate ul.pagination {
+            display: flex; flex-wrap: wrap; list-style: none; gap: 4px; margin: 0; padding: 0; justify-content: flex-end;
+        }
+        .dataTables_wrapper .dataTables_paginate ul.pagination .page-item .page-link {
+            display: inline-block; padding: 6px 14px; border-radius: 9999px; font-size: 13px;
+            color: #0F122A; text-decoration: none; border: 1px solid #E1E4EB; cursor: pointer;
+            transition: all 0.2s; background: transparent; line-height: 1.4;
+        }
+        .dataTables_wrapper .dataTables_paginate ul.pagination .page-item .page-link:hover {
+            background: #F6F6F9; border-color: #007AFF; color: #007AFF;
+        }
+        .dataTables_wrapper .dataTables_paginate ul.pagination .page-item.active .page-link {
+            background: #007AFF; color: #fff; border-color: #007AFF;
+        }
+        .dataTables_wrapper .dataTables_paginate ul.pagination .page-item.disabled .page-link {
+            color: #C0C2CC; cursor: not-allowed; border-color: #E1E4EB; background: transparent;
+        }
     </style>
 @endpush
 
