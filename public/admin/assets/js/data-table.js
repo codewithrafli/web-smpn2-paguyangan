@@ -11,6 +11,7 @@ $(function() {
         [10, 30, 50, "All"]
       ],
       "iDisplayLength": 10,
+      "autoWidth": false,
       "language": {
         search: ""
       }

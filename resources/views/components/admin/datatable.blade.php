@@ -17,11 +17,14 @@
 
 @push('style')
     <style>
-        /* Table full width */
-        #dataTableExample { width: 100% !important; }
+        /* Force full width */
+        .dataTables_wrapper { width: 100% !important; }
+        #dataTableExample { width: 100% !important; table-layout: auto; }
         #dataTableExample th { padding: 12px 16px; font-weight: 600; font-size: 13px; white-space: nowrap; }
         #dataTableExample td { padding: 12px 16px; border-top: 1px solid #E1E4EB; font-size: 13px; }
         #dataTableExample tbody tr:hover { background: #F6F6F9; }
+        /* Kolom Nama stretch */
+        #dataTableExample th:nth-child(3), #dataTableExample td:nth-child(3) { width: 100%; }
 
         /* Bootstrap grid shim for DataTables wrapper */
         .dataTables_wrapper .row {
