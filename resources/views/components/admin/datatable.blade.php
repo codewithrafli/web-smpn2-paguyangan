@@ -17,15 +17,27 @@
 
 @push('style')
     <style>
-        /* Table */
+        /* Table full width */
+        #dataTableExample { width: 100% !important; }
         #dataTableExample th { padding: 12px 16px; font-weight: 600; font-size: 13px; white-space: nowrap; }
         #dataTableExample td { padding: 12px 16px; border-top: 1px solid #E1E4EB; font-size: 13px; }
         #dataTableExample tbody tr:hover { background: #F6F6F9; }
 
-        /* Wrapper rows */
-        .dataTables_wrapper .row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 10px 16px; gap: 8px; }
+        /* Bootstrap grid shim for DataTables wrapper */
+        .dataTables_wrapper .row {
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+            padding: 10px 16px; gap: 8px; width: 100%;
+        }
+        .dataTables_wrapper .row > div[class^="col-"] {
+            flex: 0 0 auto; width: auto; max-width: 100%;
+        }
+        .dataTables_wrapper .row > .col-sm-12 { flex: 0 0 100%; width: 100%; }
+        .dataTables_wrapper .row > .col-md-6 { flex: 1 1 0; }
+        .dataTables_wrapper .row > .col-md-7 { flex: 1 1 0; }
+        .dataTables_wrapper .row > .col-md-5 { flex: 1 1 0; }
 
         /* Search */
+        .dataTables_wrapper .dataTables_filter { text-align: right; }
         .dataTables_wrapper .dataTables_filter input { border-radius: 9999px; border: 1px solid #E1E4EB; padding: 8px 16px; outline: none; font-size: 13px; }
         .dataTables_wrapper .dataTables_filter input:focus { box-shadow: 0 0 0 2px #007AFF; border-color: transparent; }
 
@@ -36,9 +48,14 @@
         /* Info */
         .dataTables_wrapper .dataTables_info { font-size: 13px; color: #8F91A2; }
 
-        /* Pagination - Bootstrap 5 markup */
+        /* Pagination */
+        .dataTables_wrapper .dataTables_paginate { text-align: right; }
         .dataTables_wrapper .dataTables_paginate ul.pagination {
-            display: flex; flex-wrap: wrap; list-style: none; gap: 4px; margin: 0; padding: 0; justify-content: flex-end;
+            display: inline-flex !important; flex-wrap: wrap; list-style: none; gap: 4px;
+            margin: 0; padding: 0; justify-content: flex-end;
+        }
+        .dataTables_wrapper .dataTables_paginate ul.pagination .page-item {
+            display: inline-block;
         }
         .dataTables_wrapper .dataTables_paginate ul.pagination .page-item .page-link {
             display: inline-block; padding: 6px 14px; border-radius: 9999px; font-size: 13px;

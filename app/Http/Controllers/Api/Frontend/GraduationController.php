@@ -17,13 +17,23 @@ class GraduationController extends Controller
 
     public function show(Request $request)
     {
-
         $graduation = $this->graduationRepository->getGraduationByTestNumber($request->test_number);
 
         if (!$graduation) {
             return response()->json([
                 'message' => 'Data tidak ditemukan',
             ], 200);
+        }
+
+        // Verifikasi tanggal lahir jika dikirim dan student punya data birthdate
+        if ($request->birthdate && $graduation->student && $graduation->student->birthdate) {
+            $inputDate = $request->birthdate;
+            $studentDate = $graduation->student->birthdate->format('Y-m-d');
+            if ($inputDate !== $studentDate) {
+                return response()->json([
+                    'message' => 'Data tidak ditemukan',
+                ], 200);
+            }
         }
 
         return response()->json([

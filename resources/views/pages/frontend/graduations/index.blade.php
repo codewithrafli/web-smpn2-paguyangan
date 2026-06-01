@@ -73,14 +73,16 @@
                 <p class="text-white/60 text-sm md:text-base">{{ getWebConfiguration()->name }}</p>
             </div>
 
-            <!-- Search Card -->
             <div class="w-full max-w-[480px]">
-                <div class="search-card rounded-3xl p-8">
+                <!-- Search Card -->
+                <div id="searchCard" class="search-card rounded-3xl p-8">
                     <h3 class="text-white font-bold text-lg mb-1">Cek Hasil Kelulusan</h3>
-                    <p class="text-white/50 text-sm mb-6">Masukkan NISN / Nomor Ujian untuk melihat hasil</p>
+                    <p class="text-white/50 text-sm mb-6">Masukkan NISN dan Tanggal Lahir untuk verifikasi</p>
 
-                    <div class="relative">
-                        <input type="text" id="search" placeholder="Masukkan NISN..." autocomplete="off"
+                    <div class="flex flex-col gap-3">
+                        <input type="text" id="search" placeholder="NISN / Nomor Ujian" autocomplete="off"
+                            class="w-full rounded-2xl bg-white/10 border border-white/20 px-5 py-4 text-white font-semibold placeholder:text-white/30 outline-none transition-all duration-300 focus:ring-2 focus:ring-bl-blue focus:border-transparent focus:bg-white/15">
+                        <input type="date" id="birthdate" autocomplete="off"
                             class="w-full rounded-2xl bg-white/10 border border-white/20 px-5 py-4 text-white font-semibold placeholder:text-white/30 outline-none transition-all duration-300 focus:ring-2 focus:ring-bl-blue focus:border-transparent focus:bg-white/15">
                     </div>
                     <button id="btn" class="w-full mt-4 rounded-2xl bg-bl-blue text-white font-semibold py-4 px-6 transition-all duration-300 hover:shadow-[0_8px_30px_0_#007AFF80] disabled:opacity-50 text-sm">
@@ -88,8 +90,8 @@
                     </button>
                 </div>
 
-                <!-- Result Area -->
-                <div class="mt-6" id="resultArea" style="display:none;"></div>
+                <!-- Result Area (replaces search card) -->
+                <div id="resultArea" style="display:none;"></div>
             </div>
 
             <!-- Back to home -->
@@ -145,32 +147,51 @@
             return `<div style="background:#fff;border-radius:24px;border:2px solid #e5e7eb;padding:40px 24px;text-align:center">
                 <i class="bi bi-search" style="font-size:2.5rem;color:#d1d5db;display:block;margin-bottom:12px"></i>
                 <h5 style="font-weight:700;margin-bottom:4px">Data Tidak Ditemukan</h5>
-                <p style="color:#6b7280;font-size:.9rem;margin:0">Pastikan nomor ujian yang dimasukkan sudah benar</p>
+                <p style="color:#6b7280;font-size:.9rem;margin:0">Pastikan NISN dan tanggal lahir yang dimasukkan sudah benar</p>
             </div>`;
         }
 
+        function showResult(html) {
+            $('#searchCard').fadeOut(200, function() {
+                var backBtn = `<button id="btnBack" style="display:flex;align-items:center;gap:8px;margin-top:16px;padding:12px 24px;border-radius:9999px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;width:100%;justify-content:center;" onmouseover="this.style.background='rgba(255,255,255,0.15)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.08)';this.style.color='rgba(255,255,255,0.6)'"><i class="bi bi-arrow-left"></i> Cek Lagi</button>`;
+                $('#resultArea').html(html + backBtn).fadeIn(300);
+                $('#btnBack').click(function() {
+                    $('#resultArea').fadeOut(200, function() {
+                        $(this).empty();
+                        $('#search').val('');
+                        $('#birthdate').val('');
+                        $('#searchCard').fadeIn(300);
+                    });
+                });
+            });
+        }
+
         $(document).ready(function() {
+            $('#birthdate').on('keypress', function(e) { if (e.which === 13) $('#btn').click(); });
             $('#search').on('keypress', function(e) { if (e.which === 13) $('#btn').click(); });
             $('#btn').click(function() {
                 var test_number = $('#search').val().trim();
-                if (!test_number) return;
+                var birthdate = $('#birthdate').val();
+                if (!test_number || !birthdate) return;
                 var $btn = $(this);
                 $btn.prop('disabled', true).html('<span style="display:inline-block;width:16px;height:16px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin .6s linear infinite"></span>');
                 $.ajax({
-                    url: "/api/graduation", method: "GET", data: { test_number: test_number },
+                    url: "/api/graduation", method: "GET",
+                    data: { test_number: test_number, birthdate: birthdate },
                     success: function(data) {
-                        var $area = $('#resultArea');
                         if (data.message === 'Data ditemukan') {
-                            $area.html(renderResult(data.data)).fadeIn(300);
+                            showResult(renderResult(data.data));
                             if (data.data.status === 'passed') {
-                                confetti({ particleCount: 300, spread: 200, origin: { y: 0.6 } });
-                                sound.play();
+                                setTimeout(function() {
+                                    confetti({ particleCount: 300, spread: 200, origin: { y: 0.6 } });
+                                    sound.play();
+                                }, 250);
                             }
                         } else {
-                            $area.html(renderNotFound()).fadeIn(300);
+                            showResult(renderNotFound());
                         }
                     },
-                    error: function() { $('#resultArea').html(renderNotFound()).fadeIn(300); },
+                    error: function() { showResult(renderNotFound()); },
                     complete: function() { $btn.prop('disabled', false).html('Cek Hasil Kelulusan'); }
                 });
             });
@@ -179,6 +200,8 @@
 
     <style>
         @keyframes spin { to { transform: rotate(360deg); } }
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1) opacity(0.5); cursor: pointer; }
+        input[type="date"]:invalid::-webkit-datetime-edit { color: rgba(255,255,255,0.3); }
     </style>
 </body>
 </html>
