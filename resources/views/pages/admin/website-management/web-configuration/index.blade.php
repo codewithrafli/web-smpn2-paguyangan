@@ -49,6 +49,9 @@
                         name="instagram" />
                     <x-input.text value="{{ $webConfiguration->youtube }}" label="Youtube Website"
                         name="youtube" />
+                    <x-input.text type="datetime-local"
+                        value="{{ $webConfiguration->graduation_datetime ? $webConfiguration->graduation_datetime->format('Y-m-d\TH:i') : '' }}"
+                        label="Tanggal & Jam Pengumuman Kelulusan" name="graduation_datetime" />
                     <x-input.text value="{{ $webConfiguration->theme_color }}" label="Warna Website"
                         name="theme_color" />
                 </div>

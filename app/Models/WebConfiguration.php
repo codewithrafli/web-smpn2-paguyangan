@@ -28,10 +28,12 @@ class WebConfiguration extends Model
         'vision',
         'mission',
         'organization_structure',
+        'graduation_datetime',
     ];
 
     protected $casts = [
         'id' => 'string',
+        'graduation_datetime' => 'datetime',
     ];
 
     public $incrementing = false;

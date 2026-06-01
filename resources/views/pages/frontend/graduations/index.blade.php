@@ -56,6 +56,39 @@
             opacity: 0.06;
             pointer-events: none;
         }
+
+        .countdown-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 20px 12px;
+            min-width: 80px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .countdown-box:hover { transform: translateY(-4px); }
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .countdown-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.45);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
@@ -73,7 +106,35 @@
                 <p class="text-white/60 text-sm md:text-base">{{ getWebConfiguration()->name }}</p>
             </div>
 
-            <div class="w-full max-w-[480px]">
+            <div class="w-full max-w-[520px]">
+                <!-- Countdown Section -->
+                <div id="countdownSection" style="display:none;" class="countdown-card rounded-3xl p-8 text-center">
+                    <div class="mb-2">
+                        <i class="bi bi-clock-history text-white/40" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-1">Pengumuman Belum Dibuka</h3>
+                    <p id="countdownDateText" class="text-white/50 text-sm mb-8"></p>
+
+                    <div class="flex justify-center gap-3" id="countdownBoxes">
+                        <div class="countdown-box">
+                            <div class="countdown-number" id="cdDays">00</div>
+                            <div class="countdown-label">Hari</div>
+                        </div>
+                        <div class="countdown-box">
+                            <div class="countdown-number" id="cdHours">00</div>
+                            <div class="countdown-label">Jam</div>
+                        </div>
+                        <div class="countdown-box">
+                            <div class="countdown-number" id="cdMinutes">00</div>
+                            <div class="countdown-label">Menit</div>
+                        </div>
+                        <div class="countdown-box">
+                            <div class="countdown-number" id="cdSeconds">00</div>
+                            <div class="countdown-label">Detik</div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Search Card -->
                 <div id="searchCard" class="search-card rounded-3xl p-8">
                     <h3 class="text-white font-bold text-lg mb-1">Cek Hasil Kelulusan</h3>
@@ -105,6 +166,71 @@
     <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.10.1/tsparticles.confetti.bundle.min.js"></script>
 
     <script>
+        const graduationDatetime = @json(optional(getWebConfiguration()->graduation_datetime)->toIso8601String());
+
+        (function initCountdown() {
+            const searchCard = document.getElementById('searchCard');
+            const countdownSection = document.getElementById('countdownSection');
+
+            if (!graduationDatetime) {
+                searchCard.style.display = '';
+                countdownSection.style.display = 'none';
+                return;
+            }
+
+            const target = new Date(graduationDatetime);
+            const now = new Date();
+
+            if (now >= target) {
+                searchCard.style.display = '';
+                countdownSection.style.display = 'none';
+                return;
+            }
+
+            // Show countdown, hide form
+            searchCard.style.display = 'none';
+            countdownSection.style.display = '';
+
+            // Format date for display
+            const formatted = target.toLocaleDateString('id-ID', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+            document.getElementById('countdownDateText').textContent = 'Pengumuman akan dibuka pada ' + formatted;
+
+            function updateCountdown() {
+                const now = new Date();
+                const diff = target - now;
+
+                if (diff <= 0) {
+                    clearInterval(timer);
+                    countdownSection.style.opacity = '0';
+                    countdownSection.style.transition = 'opacity 0.5s';
+                    setTimeout(function() {
+                        countdownSection.style.display = 'none';
+                        searchCard.style.display = '';
+                        searchCard.style.opacity = '0';
+                        searchCard.style.transition = 'opacity 0.5s';
+                        setTimeout(function() { searchCard.style.opacity = '1'; }, 50);
+                    }, 500);
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('cdDays').textContent = String(days).padStart(2, '0');
+                document.getElementById('cdHours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('cdMinutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('cdSeconds').textContent = String(seconds).padStart(2, '0');
+            }
+
+            updateCountdown();
+            const timer = setInterval(updateCountdown, 1000);
+        })();
+
         const sound = new Audio('{{ asset('frontend/assets/win.mp3') }}');
 
         function renderResult(data) {
